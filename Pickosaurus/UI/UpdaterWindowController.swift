@@ -1,0 +1,34 @@
+import AppKit
+import SwiftUI
+
+@MainActor
+final class UpdaterWindowController: NSObject, NSWindowDelegate {
+    static let shared = UpdaterWindowController()
+
+    private var window: NSWindow?
+
+    private override init() {
+        super.init()
+    }
+
+    func show() {
+        if window == nil {
+            let hosting = NSHostingController(rootView: UpdaterView(controller: .shared))
+            let newWindow = NSWindow(contentViewController: hosting)
+            newWindow.title = "Pickosaurus Update"
+            newWindow.styleMask = [.titled, .closable, .fullSizeContentView]
+            newWindow.titlebarAppearsTransparent = true
+            newWindow.isMovableByWindowBackground = true
+            newWindow.center()
+            newWindow.delegate = self
+            newWindow.isReleasedWhenClosed = false
+            window = newWindow
+        }
+
+        AppWindowPresentation.shared.show(window)
+    }
+
+    func close() {
+        AppWindowPresentation.shared.hide(window)
+    }
+}

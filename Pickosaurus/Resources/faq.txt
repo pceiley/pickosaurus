@@ -1,0 +1,57 @@
+# Frequently Asked Questions
+
+Everything you need to know about Pickosaurus.
+
+## What does Pickosaurus do?
+
+Pickosaurus becomes your default browser and intercepts every link. It then routes each link to the right browser or application — either automatically using your rules, or by asking you each time.
+
+## How do I set it as the default browser?
+
+Open the menu bar icon and choose Set as Default Browser…. macOS may ask you to confirm. Once set, all links from other apps flow through Pickosaurus.
+
+## How do rules work?
+
+A rule matches a link by URL pattern (contains, host equals, or host suffix) and sends it to a browser or application. Rules are checked top to bottom — the first match wins. You can reorder them by dragging.
+
+## How do I show the picker for every link?
+
+Always show picker in Settings → General → Link handling is enabled by default. It shows a native menu near the pointer for every link. Click a destination or use its key; Escape or a click outside dismisses the menu. While it is on, rules and the fallback controls are greyed out and inactive. Turn it off to use your saved rules and fallback action again.
+
+## Can I copy a link instead of opening it?
+
+Choose Copy Link below the destinations, or press ⌘C. The original URL is copied and the picker closes without opening an app. Plain C still selects Chrome when assigned. Copy works even if no browsers are enabled.
+
+## How do I change or disable a shortcut?
+
+In Settings → Browsers → Installed browsers, click a browser and press a letter or number. Choose Disable Shortcut or press Delete while recording to remove it. Escape cancels. Each key belongs to one destination; keys work only in the open picker.
+
+## Can Pickosaurus start when I sign in?
+
+Enable Settings → General → Startup → Start at login. Keep the signed app in a permanent location first. If approval is needed, use Open Login Items…. Disable the toggle to remove the registration. This option is off until you enable it.
+
+## Can I open Zoom links in Zoom?
+
+Add Zoom in Settings → Applications, then choose it from the menu or assign it a key. Standard numeric /j/ meeting invitations are supported. Registration, personal-room and sign-in pages need a browser. Other added apps receive the original web link; support depends on the app.
+
+## What happens when no rule matches?
+
+Choose one option under When no rule matches in Settings → General → Link handling (or from the menu bar):
+
+• Show picker — asks which browser or application to use.
+
+• A browser or application — opens directly in that destination. Only enabled, available destinations can be selected. If the saved destination becomes unavailable, the picker opens instead.
+
+## Does automatic routing need additional permissions?
+
+No. Both rules and the picker work without Full Disk Access, Accessibility or Automation. Pickosaurus passes links through macOS; each browser chooses its current/default profile. Named profiles and spaces are not selectable.
+
+## A browser is missing.
+
+Install the browser, then choose Refresh Browsers from the menu bar. Enable it in Settings → Browsers. You can also add other installed apps in Settings → Applications.
+
+## The app icon looks blank.
+
+macOS aggressively caches app icons. Quit the app and reopen it; if it persists, log out and back in to refresh the system icon cache.
+
+    Need more help? Consult the Pickosaurus README.

@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1254" height="1254" viewBox="0 0 1254 1254">
+  <title>Pickosaurus dinosaur</title>
+  <desc>Editable vector refinement of the project's ChatGPT-generated dinosaur. Original paths; no embedded raster images or external resources.</desc>
+  <defs>
+    <linearGradient id="green" x1="0" y1="0" x2="0.6" y2="1" gradientUnits="objectBoundingBox"><stop stop-color="#a1ed78"/><stop offset="0.55" stop-color="#8bdd70"/><stop offset="1" stop-color="#45b17b"/></linearGradient>
+    <linearGradient id="snout" x1="0.2" y1="0" x2="0.85" y2="1"><stop stop-color="#dcfba3"/><stop offset="0.5" stop-color="#b8ec88"/><stop offset="1" stop-color="#72c76b"/></linearGradient>
+    <linearGradient id="spine" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#076a62"/><stop offset="1" stop-color="#00333f"/></linearGradient>
+    <linearGradient id="cream" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#fffbd7"/><stop offset="1" stop-color="#f2f2bd"/></linearGradient>
+    <linearGradient id="hand" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#b6ec85"/><stop offset="1" stop-color="#80ce72"/></linearGradient>
+    <linearGradient id="nostril" x1="1" y1="0" x2="0" y2="1"><stop stop-color="#002e39"/><stop offset="0.6" stop-color="#00504a"/><stop offset="1" stop-color="#26865a"/></linearGradient>
+  </defs>
+  <!-- Spines: broad shapes remain distinct at small sizes. -->
+  <path fill="#90e8a1" d="M394 225 C391 91 449 15 513 45 C570 65 611 117 635 176 L472 298 Z M278 405 C209 351 168 250 209 197 C249 147 334 166 408 231 L441 347 Z M236 615 C121 590 65 516 92 461 C112 418 174 396 254 380 L308 501 Z M228 818 C124 802 70 739 94 688 C116 645 160 619 216 590 L283 690 Z M227 1040 C136 1000 99 942 125 892 C145 852 188 819 246 791 L295 920 Z"/>
+  <path fill="url(#spine)" d="M394 230 C392 108 446 27 503 49 C562 69 604 127 628 184 L472 298 Z M278 405 C215 352 174 253 211 204 C245 163 327 179 398 241 L441 347 Z M236 615 C128 587 64 523 95 469 C120 430 174 412 254 398 L308 501 Z M228 818 C130 800 69 748 99 696 C123 656 168 635 221 610 L283 690 Z M227 1040 C143 1001 102 950 132 900 C157 860 198 835 252 812 L295 920 Z"/>
+  <!-- Head and neck silhouette. -->
+  <path fill="url(#green)" d="M73 1161 C154 1074 250 996 276 901 C307 791 210 712 209 586 C204 430 291 299 417 216 C489 169 580 145 654 168 C721 189 744 247 766 303 C789 365 812 389 849 414 L929 789 C923 905 844 985 803 1050 L970 1169 L1054 1228 L169 1228 C130 1228 89 1211 74 1195 C67 1186 67 1174 73 1161 Z"/>
+  <path fill="#d9faa1" d="M417 216 C489 162 579 145 654 168 C721 189 744 247 766 303 C789 365 812 389 849 414 L818 434 C775 397 756 350 740 306 C721 250 700 207 646 189 C566 162 485 191 417 216 Z"/>
+  <!-- Spots and cheek. -->
+  <g fill="#269a69"><ellipse cx="366" cy="352" rx="27" ry="47" transform="rotate(35 366 352)"/><ellipse cx="294" cy="462" rx="35" ry="57" transform="rotate(23 294 462)"/><ellipse cx="240" cy="562" rx="15" ry="23"/><ellipse cx="324" cy="939" rx="32" ry="45" transform="rotate(17 324 939)"/><ellipse cx="385" cy="1003" rx="24" ry="29"/><ellipse cx="278" cy="1053" rx="43" ry="69" transform="rotate(40 278 1053)"/></g>
+  <path fill="url(#snout)" d="M424 529 C348 519 284 568 286 644 C287 701 332 745 400 755 L555 788 L623 630 C561 578 502 539 424 529 Z"/>
+  <!-- Belly, smile and eye. -->
+  <path fill="url(#cream)" d="M393 598 C346 613 326 665 340 722 C358 807 429 915 474 1023 C505 1102 518 1168 510 1228 L808 1228 C798 1143 761 1084 710 1028 C634 944 582 857 546 765 C475 750 417 686 393 598 Z"/>
+  <path fill="#d6dc98" d="M548 763 C564 849 609 935 678 997 C620 963 578 922 552 877 C525 831 517 798 548 763 Z"/>
+  <path fill="#003b40" d="M405 602 C408 661 449 726 521 766 L527 784 C450 751 405 689 392 619 C378 620 366 625 358 632 C355 614 373 588 394 580 C413 573 437 579 450 591 C455 598 447 600 434 598 Z"/>
+  <path fill="#00343c" d="M446 308 C453 267 482 239 519 231 C553 223 576 233 579 257 C582 269 576 276 565 276 C523 274 488 289 457 312 C450 317 444 317 446 308 Z"/>
+  <path fill="#469f64" d="M436 489 C423 420 449 356 496 337 C547 314 594 348 607 411 L612 468 L543 549 Z"/>
+  <path fill="#00323d" d="M438 496 C428 431 450 367 497 345 C547 322 591 355 605 412 L612 468 L543 549 Z"/>
+  <path fill="#fffef0" d="M439 498 C432 443 454 384 498 362 C540 341 577 362 595 399 C560 383 530 398 516 432 C500 470 510 509 534 535 C503 528 470 512 439 498 Z"/>
+  <ellipse fill="url(#nostril)" cx="560" cy="466" rx="47" ry="71" transform="rotate(8 560 466)"/>
+  <ellipse fill="#fffef4" cx="576" cy="426" rx="17" ry="19"/>
+  <!-- Snout: two distinct dark nostrils. -->
+  <path fill="url(#snout)" d="M813 405 C898 430 1003 493 1046 573 C1088 650 1080 746 1024 815 C963 892 880 923 781 917 C687 913 599 867 576 791 C552 711 569 610 622 532 C674 456 748 421 813 405 Z"/>
+  <ellipse fill="#78c56a" cx="742" cy="770" rx="80" ry="113" transform="rotate(24 742 770)"/>
+  <ellipse fill="url(#nostril)" cx="742" cy="775" rx="63" ry="92" transform="rotate(24 742 775)"/>
+  <ellipse fill="#71be64" cx="975" cy="726" rx="72" ry="107" transform="rotate(25 975 726)"/>
+  <ellipse fill="url(#nostril)" cx="975" cy="735" rx="53" ry="88" transform="rotate(25 975 735)"/>
+  <!-- Finger, palm and forearm share a relaxed diagonal; no held object. -->
+  <path fill="url(#hand)" d="M886 1228 C900 1176 948 1120 987 1070 C992 1063 995 1054 992 1046 C965 1044 946 1028 943 1007 C917 1008 896 993 897 969 C899 932 932 900 978 881 L937 778 C925 750 928 724 951 716 C973 708 991 729 1004 755 L1059 863 C1119 878 1155 923 1178 980 C1200 1040 1200 1109 1188 1159 C1176 1205 1113 1228 1054 1228 Z"/>
+  <path fill="#d5f49b" d="M951 716 C973 708 991 729 1004 755 L1059 863 C1119 878 1155 923 1178 980 C1200 1040 1200 1109 1188 1159 C1183 1177 1172 1190 1155 1201 C1176 1138 1175 1050 1154 993 C1133 938 1095 894 1045 880 L989 763 C976 737 965 720 951 716 Z"/>
+  <path d="M943 1003 C940 968 967 945 1004 939 M990 1046 C1005 1046 1017 1037 1020 1023" fill="none" stroke="#389e69" stroke-width="12" stroke-linecap="round"/>
+  <g fill="#fff5c5"><path d="M1060 518 C1066 490 1067 465 1078 455 C1088 446 1103 454 1103 466 C1101 482 1086 513 1076 527 C1069 537 1057 534 1060 518 Z"/><path d="M1100 568 C1118 547 1140 521 1155 519 C1169 517 1180 529 1171 541 C1159 555 1131 578 1114 586 C1103 591 1095 580 1100 568 Z"/><path d="M1119 629 C1141 618 1170 609 1188 610 C1202 611 1207 628 1193 636 C1179 643 1146 646 1125 645 C1113 644 1110 635 1119 629 Z"/></g>
+</svg>

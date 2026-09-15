@@ -1,0 +1,37 @@
+Pickosaurus notices
+
+Software
+The original MIT copyright, permission notice and warranty disclaimer are included
+in LICENSE.txt. The fork retains those terms. See the project README for upstream
+attribution and the repository's licensing review for the asset inventory.
+
+Application names and icons
+Browser and application names identify compatible, installed software. Their names,
+logos and trademarks belong to their respective owners. No affiliation, sponsorship
+or endorsement is claimed. Installed application icons are obtained from macOS at
+runtime; copies of browser vendor logos are not bundled with Pickosaurus.
+
+System symbols
+Generic interface symbols are provided by Apple's SF Symbols through AppKit and
+SwiftUI on macOS. They are not redistributed as standalone artwork or licensed by
+this project's MIT licence.
+
+Pickosaurus artwork
+The dinosaur logo was generated with ChatGPT and supplied by the maintainer for
+this fork. This is an optional provenance credit, not an OpenAI attribution
+requirement. The monochrome menu-bar derivative
+was generated for this project and converted into a transparent template. See
+branding/README.md in the source repository for provenance and licensing status.
+The software licence does not grant rights to third-party trademarks or artwork
+that the contributor does not own.
+
+System libraries and developer tools
+The app uses Apple system frameworks. No third-party
+Swift packages or browser binaries are embedded. XcodeGen and packaging utilities
+are development tools, not bundled application dependencies.
+
+Inspiration
+Browserino — https://github.com/AlexStrNik/Browserino
+Browserosaurus — https://github.com/will-stone/browserosaurus
+Thank you for inspiring the quick, focused link-picking experience.
+These are inspiration credits; their code and artwork are not bundled.

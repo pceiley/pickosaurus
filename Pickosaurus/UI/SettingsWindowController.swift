@@ -1,0 +1,44 @@
+import AppKit
+import SwiftUI
+
+@MainActor
+final class SettingsWindowController: NSObject, NSWindowDelegate {
+    static let shared = SettingsWindowController()
+
+    private var window: NSWindow?
+
+    private override init() {
+        super.init()
+    }
+
+    func show(settingsStore: SettingsStore, appState: AppState) {
+        if window == nil {
+            let content = SettingsView()
+                .environmentObject(settingsStore)
+                .environmentObject(appState)
+
+            let hosting = NSHostingController(rootView: content)
+            let newWindow = NSWindow(contentViewController: hosting)
+            newWindow.title = "Pickosaurus Settings"
+            newWindow.styleMask = [.titled, .closable, .miniaturizable, .resizable]
+            newWindow.setContentSize(NSSize(width: 860, height: 600))
+            newWindow.minSize = NSSize(width: 820, height: 560)
+            newWindow.center()
+            newWindow.delegate = self
+            newWindow.isReleasedWhenClosed = false
+            window = newWindow
+        } else {
+            window?.contentViewController = NSHostingController(
+                rootView: SettingsView()
+                    .environmentObject(settingsStore)
+                    .environmentObject(appState)
+            )
+        }
+
+        AppWindowPresentation.shared.show(window)
+    }
+
+    func hide() {
+        AppWindowPresentation.shared.hide(window)
+    }
+}

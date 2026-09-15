@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="A simple, fast and private link picker for macOS. Choose a browser or app, or let local rules do it for you. Open source, with no analytics or tracking.">
+  <meta name="theme-color" content="#064f53">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'self'; img-src 'self'; base-uri 'none'; form-action 'none'">
+  <meta name="referrer" content="no-referrer">
+  <meta property="og:title" content="Pickosaurus — Your links. Your choice.">
+  <meta property="og:description" content="A small, fast link picker for macOS. No accounts. No analytics. No tracking.">
+  <meta property="og:type" content="website">
+  <title>Pickosaurus — Your links. Your choice.</title>
+  <link rel="icon" type="image/png" href="assets/icon-128.png">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+  <header class="wrap">
+    <a class="brand" href="index.html"><img src="assets/icon-128.png" width="38" height="38" alt="">Pickosaurus</a>
+    <nav aria-label="Main navigation"><a href="#features">Features</a><a href="privacy.html">Privacy</a><a href="#install">Install</a></nav>
+  </header>
+  <main id="main">
+    <section class="hero wrap">
+      <div>
+        <p class="eyebrow">Simple. Fast. Private.</p>
+        <h1>Your links.<br><span>Your choice.</span></h1>
+        <p class="intro">A small link picker for macOS. Open links in the browser or app you want, right beside your pointer. Or let local rules handle familiar links for you.</p>
+        <a class="button" href="#install">Get Pickosaurus <span aria-hidden="true">↗</span></a>
+        <p class="meta">macOS 14+ · Native app · Open source · MIT licensed</p>
+      </div>
+      <img class="mascot" src="assets/icon-256.png" srcset="assets/icon-128.png 128w, assets/icon-256.png 256w, assets/icon-512.png 512w" sizes="(max-width: 700px) 340px, 440px" width="512" height="512" alt="The green Pickosaurus dinosaur picking its nose">
+    </section>
+    <section class="wrap section" id="features">
+      <p class="eyebrow">Just what you need</p>
+      <h2>Pick. Open. Carry on.</h2>
+      <div class="cards">
+        <article><span class="number">01</span><h3>Quick by default</h3><p>A native picker beside your pointer. Click a destination, press its shortcut, or copy the link with ⌘C. Start at login keeps it ready.</p></article>
+        <article><span class="number">02</span><h3>Your rules, locally</h3><p>Route links by domain, path or source app. Choose a fallback for everything else. Your settings stay on your Mac.</p></article>
+        <article><span class="number">03</span><h3>More than browsers</h3><p>Add applications as destinations, including Zoom for supported meeting invitations. No browser-data access, Accessibility or Automation permission needed.</p></article>
+      </div>
+    </section>
+    <section class="wrap section privacy" id="privacy">
+      <div><p class="eyebrow">Private by design</p><h2>Your links aren't<br>our business.</h2></div>
+      <div><p>Pickosaurus sends no personal data to the developer. No accounts, ads, analytics, tracking or app-provided crash reports.</p><p>Small, efficient and built around standard macOS APIs. Links are handled locally and passed to the destination you choose.</p><p>Manual updates and website hosting use GitHub. <a href="privacy.html">Read the short privacy policy</a> for those disclosures.</p></div>
+    </section>
+    <section class="wrap section" id="install">
+      <p class="eyebrow">Make it yours</p><h2>Install Pickosaurus.</h2>
+      <div class="install-options">
+        <article><h3>Build from source</h3><p>Install Xcode 26 or later and XcodeGen, then run these commands from a checkout:</p><pre aria-label="Build command"><code>scripts/build-debug.sh</code></pre><p>Open <code>build/debug-preview/Products/Pickosaurus Debug.app</code>.</p><p class="meta"><a href="@@SOURCE_URL@@">Source and build instructions →</a></p></article>
+        <article><h3>Homebrew</h3>@@HOMEBREW_HTML@@</article>
+      </div>
+      <p class="meta">Mac App Store distribution is planned. Pickosaurus is not currently listed there.</p>
+    </section>
+    <section class="wrap section" id="support">
+      <p class="eyebrow">Open source</p><h2>Questions or feedback?</h2>
+      <p>Visit the <a href="@@REPOSITORY_URL@@">project on GitHub</a> for source, instructions and license credits, or <a href="@@ISSUES_URL@@">report an issue</a>. Please keep personal links and meeting passcodes out of public reports.</p>
+      <p class="meta">Inspired by <a href="https://github.com/AlexStrNik/Browserino">Browserino</a> and <a href="https://github.com/will-stone/browserosaurus">Browserosaurus</a>, and their quick, focused approach to opening links.</p>
+    </section>
+  </main>
+  <footer class="wrap"><a class="brand" href="index.html">Pickosaurus</a><p>Simple. Fast. Efficient. Secure. Private.</p><a href="privacy.html">Privacy policy</a></footer>
+</body>
+</html>

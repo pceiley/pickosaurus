@@ -1,0 +1,18 @@
+# Template only. Replace all @...@ tokens after a signed release is available.
+cask "pickosaurus" do
+  version "@VERSION@"
+  sha256 "@SHA256@"
+
+  url "https://github.com/@REPOSITORY@/releases/download/v#{version}/Pickosaurus-#{version}.zip"
+  name "Pickosaurus"
+  desc "A simple, fast and private link picker for macOS"
+  homepage "https://github.com/@REPOSITORY@"
+  depends_on macos: ">= :sonoma"
+  app "Pickosaurus.app"
+
+  zap trash: [
+    "~/Library/Application Support/Pickosaurus",
+    "~/Library/Preferences/com.pickosaurus.app.plist",
+    "~/Library/Caches/com.pickosaurus.app",
+  ]
+end

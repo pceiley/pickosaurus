@@ -1,0 +1,154 @@
+# Matching help
+
+Choose which links a rule opens, with examples you can copy. This guide is available offline.
+
+## Quick start
+
+• Open Settings → Rules → Add Rule, or edit an existing rule.
+
+• Under Match conditions, choose Any (OR) or All (AND).
+
+• Choose a condition type from the dropdown and enter its value. Use Add Condition for another condition, or the minus button to remove one.
+
+• Check NOT to invert an individual condition.
+
+• Choose an enabled browser or application and click Save Rule.
+
+Rules run in list order: the first matching enabled rule wins. Disabled rules and rules targeting disabled destinations are skipped. If no rule matches, your configured fallback handles the link.
+
+## Test a URL without opening it
+
+• Save your rule, then find Rule tester at the top of Settings → Rules.
+
+• Paste a full URL, such as https://example.com/work/project. Include https:// or http://.
+
+• Optionally choose a Source application to simulate a link sent by that app. Leave it as Unknown / not provided to test without source information.
+
+• Click Test Rule or press Return. The result shows the first matching saved rule, the browser or application.
+
+Disabled rules and rules targeting disabled destinations are skipped, just as when opening a real link. If no rule matches, the result explains whether your fallback destination would be used or the link picker would open. If a matched rule’s browser is missing, update its destination; routing would fail instead of falling back.
+
+The tester never opens the link or changes your settings. It previews the routing decision; it does not launch the destination application. Changing the URL, settings or detected browsers clears the result: click Test Rule again to refresh it.
+
+## Find conflicting rules
+
+The rule list and editor warn when an earlier enabled rule has identical conditions or fully covers a later rule. The warning names that rule. Identical conditions with different destinations are labeled Same conditions, different destination; identical conditions with the same destination are labeled Duplicate conditions.
+
+For example, Host equals example.com above Host equals example.com AND Path starts with /personal/ will handle every link the second rule matches. Put the more specific rule first, narrow the earlier rule, or disable one of them. You can still save a rule with a warning.
+
+Warnings update when conditions, destinations, priorities, or enabled states change. Disabled rules and disabled destinations are ignored; Always show picker pauses the checks. Missing browsers still participate because routing selects their rule before reporting a missing destination.
+
+Checks detect identical conditions and simple full-coverage relationships for URL text, hosts, paths, AND/OR, and NOT. They do not analyze partial overlaps, several earlier rules covering a rule together, or relationships between different regex patterns. Identical regex text is flagged as duplicate conditions, without running it. No warning does not guarantee there is no overlap. Use Rule tester to check specific URLs and source applications.
+
+## Condition types
+
+Condition types and behavior
+
+URL contains — Text anywhere in the full URL, including query parameters and fragments. Case-insensitive. Example: project=work.
+
+Host equals — The exact hostname, without scheme, port or path. Case-insensitive. example.com does not match docs.example.com.
+
+Host suffix — A hostname ending in the supplied text, ignoring case and optional leading/trailing dots. This is a literal suffix: example.com also matches notexample.com. For a domain and its subdomains only, use the regex example below.
+
+Path equals — The entire decoded path, including trailing slashes. /dashboard matches https://example.com/dashboard?tab=work, but not /dashboard/.
+
+Path starts with — A decoded path beginning with the value. /work/ matches /work/report, but not /workspace or /work.
+
+Path contains — Text anywhere in the decoded path. /invoices/ matches /accounts/invoices/42.
+
+URL regex — A regular expression searched against the full URL, including its query and fragment. Case-sensitive by default. See the examples below.
+
+Source application — The macOS application that sent the link. Click Choose Application… and type to filter installed apps by name or bundle identifier. Select a result with its icon, or use the arrow keys and Return. The rule saves the app’s bundle identifier, so renaming or moving an app does not change the match.
+
+Path conditions ignore the domain, query string and fragment. They are case-sensitive: /Work/ differs from /work/. Path equals and Path starts with must begin with /. A URL with no path is treated as /.
+
+Paths decode percent escapes: enter /my files/ to match a path containing /my%20files/. URL contains and URL regex use the full URL representation, so use percent-encoded text there when appropriate.
+
+## AND, OR & NOT
+
+• Any (OR): at least one condition must match. Use this for several alternative domains.
+
+• All (AND): every condition must match the same link. Use this for a particular domain and path.
+
+• NOT: inverts only the condition beside the checkbox. A matching path becomes an exclusion; the other conditions keep their own meaning.
+
+To restrict a domain and exclude a path, choose All (AND). With OR, a NOT condition can match most links outside that path, even on other domains.
+
+The selected mode applies to the whole condition list. Nested groups such as (A OR B) AND C are not supported in a single rule; use separate rules for each domain with the same exclusion.
+
+## Examples
+
+### Work links from Mail
+
+Mode: All (AND)
+Source application: Mail
+Host equals: example.com
+
+Only links to this domain sent by Mail open in the chosen browser. Use Any (OR) with several source application conditions to match links from any of those apps.
+
+Source information comes from the sending macOS event. Some apps open links through helpers or intermediaries, and some senders cannot be identified. An unknown source matches neither a Source application condition nor its NOT version. URL-only rules and your fallback still work. The frontmost application is not used as a guess.
+
+### Two work domains
+
+Mode: Any (OR)
+Host equals: gitlab.example.com
+Host equals: jira.example.com
+
+Either domain opens in the selected browser.
+
+### Only the work section
+
+Mode: All (AND)
+Host equals: example.com
+Path starts with: /work/
+
+Matches https://example.com/work/report. Does not match https://other.com/work/report or https://example.com/personal/.
+
+### A domain except its personal section
+
+Mode: All (AND)
+Host equals: example.com
+NOT Path starts with: /personal/
+NOT Path equals: /personal
+
+Both exclusions are needed to cover the section itself and everything beneath it. Other domains do not match.
+
+## Regular expressions
+
+Choose URL regex and enter the pattern directly. Do not wrap it in JavaScript-style /pattern/ delimiters. Pickosaurus uses Foundation’s NSRegularExpression syntax.
+
+A pattern can match part of the URL. Use ^ to anchor its beginning and $ for the end. Escape literal dots as \.. Add (?i) at the beginning for case-insensitive matching.
+
+### Work or admin section on one domain
+
+^https://example\.com/(work|admin)(/|[?#]|$)
+
+Matches https://example.com/work/report and https://example.com/admin?tab=users, but not https://example.com/workspace.
+
+### A domain and its subdomains
+
+(?i)^https?://([a-z0-9-]+\.)*example\.com(:[0-9]+)?(/|[?#]|$)
+
+Matches example.com and docs.example.com, including an optional port. Does not match notexample.com.
+
+### PDF links
+
+(?i)\.pdf([?#]|$)
+
+Matches a full URL ending in .pdf, optionally followed by a query or fragment. Since regex checks the entire URL, this can also match text inside a query value.
+
+Invalid expressions show an error in the editor and cannot be saved. Expressions that fail or are interrupted for taking too long are treated as non-matches, even with NOT.
+
+## Why did my rule not match?
+
+• Check that both the rule and its destination are enabled.
+
+• An earlier rule may already match the link. Drag rules to change their priority.
+
+• Two different Host equals conditions cannot both match one link under AND; use OR.
+
+• Check path case and trailing slashes. Path conditions do not look in query parameters.
+
+• Every condition needs a valid value. A new empty condition keeps Save Rule disabled until filled or removed.
+
+• Use Matching help in the editor to reopen this guide without closing your draft.

@@ -1,0 +1,54 @@
+name: Pickosaurus
+options:
+  bundleIdPrefix: com.pickosaurus
+  deploymentTarget:
+    macOS: "14.0"
+  createIntermediateGroups: true
+settings:
+  base:
+    SWIFT_VERSION: "5.10"
+    MACOSX_DEPLOYMENT_TARGET: "14.0"
+    ALWAYS_SEARCH_USER_PATHS: NO
+targets:
+  Pickosaurus:
+    type: application
+    platform: macOS
+    sources:
+      - path: Pickosaurus
+        excludes:
+          - AppIcon.icon
+      - path: Pickosaurus/AppIcon.icon
+        type: file
+        buildPhase: resources
+    settings:
+      base:
+        PRODUCT_NAME: Pickosaurus
+        SKIP_INSTALL: NO
+        INSTALL_PATH: "$(LOCAL_APPS_DIR)"
+        PRODUCT_BUNDLE_IDENTIFIER: com.pickosaurus.app
+        PRODUCT_MODULE_NAME: Pickosaurus
+        INFOPLIST_FILE: Pickosaurus/Info.plist
+        CODE_SIGN_ENTITLEMENTS: Pickosaurus/Pickosaurus.entitlements
+        CODE_SIGN_STYLE: Automatic
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+        ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME: AccentColor
+        GENERATE_INFOPLIST_FILE: NO
+        CURRENT_PROJECT_VERSION: 1
+        MARKETING_VERSION: 0.1.0
+        COMBINE_HIDPI_IMAGES: YES
+        ENABLE_HARDENED_RUNTIME: YES
+        PICKOSAURUS_UPDATE_REPOSITORY: ""
+        PICKOSAURUS_UPDATE_TEAM_IDENTIFIER: ""
+      configs:
+        Debug:
+          ENABLE_TESTABILITY: YES
+          SWIFT_OPTIMIZATION_LEVEL: "-Onone"
+          GCC_OPTIMIZATION_LEVEL: "0"
+          PRODUCT_NAME: Pickosaurus Debug
+          PRODUCT_BUNDLE_IDENTIFIER: com.pickosaurus.debug
+          SWIFT_ACTIVE_COMPILATION_CONDITIONS: "$(inherited) DEBUG PICKOSAURUS_DEBUG"
+        Release:
+          SWIFT_OPTIMIZATION_LEVEL: "-O"
+          SWIFT_COMPILATION_MODE: wholemodule
+    scheme:
+      gatherCoverageData: false
