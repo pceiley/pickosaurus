@@ -24,4 +24,4 @@ First Pickosaurus source release, with a standalone root commit and retained ups
 - Licensing/asset review, publication checks and CI configuration.
 
 No public signed or notarized release is available yet. See [the README](README.md)
-for local builds and [licensing review](LICENSING.md) for publication prerequisites.
+for local builds and [licence and artwork notes](LICENSING.md).

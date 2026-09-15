@@ -42,7 +42,7 @@ generated with ChatGPT. This note records its origin; OpenAI does not require an
 attribution credit for generated images, per its [image guidance](https://openai.com/academy/image-generation/).
 The artwork is distributed with the project under MIT to the extent the maintainer
 holds applicable rights. Generation is not proof of copyright protection, exclusive
-ownership or trademark clearance. See [the licensing review](../LICENSING.md).
+ownership or trademark clearance. See [licence and artwork notes](../LICENSING.md).
 Vendor browser logos are not bundled.
 
 The finger, palm and forearm were refined together to keep the fingertip aligned

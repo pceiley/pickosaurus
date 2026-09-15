@@ -1,53 +1,37 @@
-# Maintaining and publishing Pickosaurus
+# Maintainer notes
 
-## Repository history
-
-This repository starts with a standalone Pickosaurus root commit. Upstream credit
-and MIT notices remain in the README and source/binary licences. Do not remove those
-notices when modifying or redistributing the app.
-
-Before committing changes:
+## Checks
 
 ```sh
-python3 scripts/check-publication.py
 scripts/test.sh
 scripts/build-debug.sh
+python3 scripts/check-publication.py
 git diff --check
-git status --short
 ```
 
-Review [licensing](../LICENSING.md), [privacy](../PRIVACY.md) and
-[security](../SECURITY_AUDIT.md). Build products, generated Xcode projects, local
-signing overrides and credentials are ignored. Do not add the private `RELEASE.md`.
+Keep MIT notices and [artwork credits](../LICENSING.md). Build products, signing
+overrides and private `RELEASE.md` notes must remain untracked.
 
-Add an `origin` only after choosing the destination owner/repository. Review what
-will be public before pushing `main`. Build and test scripts never create commits,
-repositories or pushes.
+## Releases
 
-## CI and releases
+Install XcodeGen and `create-dmg`. Configure a Developer ID certificate and Apple
+notarization credentials, then run:
 
-The workflows select macOS 26 and Xcode 26.6 for Icon Composer support.
-See the [local release-readiness audit](release-audit.md) for validation and outstanding gates.
+```sh
+APPLE_TEAM_ID=YOURTEAMID PICKOSAURUS_UPDATE_REPOSITORY=pceiley/pickosaurus scripts/release.sh 0.1.0
+```
 
-The Checks workflow builds/tests pull requests and pushes to `main` without signing
-secrets. Homebrew is used only on GitHub's hosted runner; local nix-darwin setup
-remains managed by Nix. The Release workflow is disabled until the repository
-variable `PICKOSAURUS_RELEASES_ENABLED` is set to `true` and a protected `release`
-environment has the required signing/notarization credentials. See the README for
-the exact variables and local release commands.
+Notarization uses the `pickosaurus-notary` Keychain profile (`NOTARY_PROFILE` to
+override), or `APPLE_ID` and `APPLE_APP_PASSWORD`. Set `SIGN_IDENTITY` if needed.
+The script builds, signs and notarizes universal ZIP/DMG artifacts; it does not publish.
 
-Enable GitHub private vulnerability reporting and review branch protections after
-creating the repository. Do not configure updater repository/team identity until
-you control a stable signed distribution. Never commit signing credentials.
+Hosted releases require `PICKOSAURUS_RELEASES_ENABLED=true` and signing secrets
+in the protected `release` environment. Keep the bundle ID and signing team stable.
+Publish the Homebrew cask from `Casks/pickosaurus.rb.in` only after a signed release
+exists, then update the README and `docs/site.json` with its install command.
 
-## Manual pre-release checks
+Before releasing, test installation, updates and rollback, link selection, Zoom,
+default-browser registration, login items and icons. Include macOS 14 and Intel
+hardware. Automated checks do not replace these device checks.
 
-Run the locally signed app from a stable location. Check actual link clicks near
-each display edge, picker keys and mouse selection, recorder focus/cancellation,
-Zoom links, and browser startup. Enable/disable Start at login and check macOS Login
-Items, including a real logout/login cycle. Automated tests use an injected service
-and deliberately do not modify the current user's login items or join meetings.
-
-Automated checks use a separate `com.pickosaurus.checks` app without registered URL
-schemes. Never give test bundles the debug or release browser identity: macOS can
-otherwise select a test artifact as the installed copy of the default browser.
+See [website maintenance](website-maintenance.md) for Pages and App Store preparation.

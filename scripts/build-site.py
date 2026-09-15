@@ -38,7 +38,7 @@ else:
 if brew:
     brew_html = '<p>Install the published cask:</p><pre aria-label="Homebrew command"><code>' + html.escape(brew) + '</code></pre>'
 else:
-    brew_html = '<p>See the <a href="' + repo_url + '/blob/main/README.md#homebrew">Homebrew installation instructions</a> for the current cask and availability.</p>'
+    brew_html = '<p>Coming later. For now, <a href="' + repo_url + '/blob/main/README.md#build-and-run">build from source</a>.</p>'
 replacements = {
     '@@REPOSITORY_URL@@': repo_url,
     '@@SOURCE_URL@@': repo_url + '/blob/main/README.md#build-and-run',

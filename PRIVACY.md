@@ -13,5 +13,3 @@ In builds with the standalone updater enabled, checking for or downloading an up
 This project's website has no analytics, tracking scripts or cookies added by Pickosaurus. GitHub Pages records visitor IP addresses for security under GitHub's privacy policy. Store and package-manager downloads are governed by their providers' privacy policies.
 
 Questions? Contact the maintainer through the project's GitHub repository. Any information you choose to include in a support request is visible to its recipients; public issues are public. Please do not post personal links or meeting passcodes.
-
-[Technical storage and networking details](docs/privacy-details.md).
