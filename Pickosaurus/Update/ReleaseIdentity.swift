@@ -5,9 +5,15 @@ import Security
 enum ReleaseIdentity {
     static let bundleIdentifier = "com.pickosaurus.app"
 
+    static func requirementString(teamIdentifier: String) -> String? {
+        guard ReleaseConfiguration.isValidTeamIdentifier(teamIdentifier) else { return nil }
+        // Requirement syntax needs quotes for Team IDs beginning with a digit.
+        return "anchor apple generic and identifier \"\(bundleIdentifier)\" and (certificate leaf[field.1.2.840.113635.100.6.1.9] exists or certificate 1[field.1.2.840.113635.100.6.2.6] exists and certificate leaf[field.1.2.840.113635.100.6.1.13] exists and certificate leaf[subject.OU] = \"\(teamIdentifier)\")"
+    }
+
     static func isValid(at url: URL, teamIdentifier: String? = ReleaseConfiguration.teamIdentifier) -> Bool {
         guard let teamIdentifier, ReleaseConfiguration.isValidTeamIdentifier(teamIdentifier) else { return false }
-        let designatedRequirement = "anchor apple generic and identifier \"\(bundleIdentifier)\" and (certificate leaf[field.1.2.840.113635.100.6.1.9] exists or certificate 1[field.1.2.840.113635.100.6.2.6] exists and certificate leaf[field.1.2.840.113635.100.6.1.13] exists and certificate leaf[subject.OU] = \(teamIdentifier))"
+        guard let designatedRequirement = requirementString(teamIdentifier: teamIdentifier) else { return false }
         guard Bundle(url: url)?.bundleIdentifier == bundleIdentifier else { return false }
 
         var staticCode: SecStaticCode?
