@@ -1,5 +1,5 @@
 {
   "repository": "pceiley/pickosaurus",
-  "homebrew_command": "",
+  "homebrew_command": "brew install --cask pceiley/pickosaurus/pickosaurus",
   "privacy_contact": ""
 }

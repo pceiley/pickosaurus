@@ -14,6 +14,31 @@ so you can click a destination, press a shortcut or copy the link.
 - **Optional rules.** Automatically route links by domain, path or source application.
 - **Private.** No data collection, analytics or tracking. No elevated permissions required.
 
+## Install
+
+Requires macOS 14 or later. Supports Apple silicon and Intel Macs.
+
+1. Download [Pickosaurus 0.1.0](https://github.com/pceiley/pickosaurus/releases/download/v0.1.0/Pickosaurus-0.1.0.zip).
+2. Double-click the ZIP to extract it, then move **Pickosaurus.app** to **Applications**.
+3. Open Pickosaurus and choose **Set as Default Browser…** from its menu bar menu.
+
+The release app is Developer ID-signed and notarized by Apple. See
+[GitHub Releases](https://github.com/pceiley/pickosaurus/releases) for downloads and checksums.
+
+Use **Settings** to choose destinations, assign shortcuts and enable
+**Start at login**. Turn off **Always show picker** to use routing rules.
+
+### Homebrew
+
+```sh
+brew install --cask pceiley/pickosaurus/pickosaurus
+```
+
+To update, run `brew update` followed by
+`brew upgrade --cask pceiley/pickosaurus/pickosaurus`.
+The [Homebrew tap](https://github.com/pceiley/homebrew-pickosaurus) installs the
+same signed and notarized app as the ZIP download. A Mac App Store version is also planned.
+
 ## Build and run
 
 Requires macOS 14+, Xcode 26+ and XcodeGen. No Swift package dependencies.
@@ -25,13 +50,7 @@ scripts/build-debug.sh
 open "build/debug-preview/Products/Pickosaurus Debug.app"
 ```
 
-Choose **Set as Default Browser…** from the menu bar, then click a link in another
-app. Use **Settings** to choose destinations, assign shortcuts and enable
-**Start at login**. Turn off **Always show picker** to use routing rules.
-
-### Homebrew
-
-Coming later. For now, build from source. A Mac App Store version is also planned.
+Development builds run separately as **Pickosaurus Debug**.
 
 ## Privacy
 

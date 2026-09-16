@@ -27,8 +27,12 @@ The script builds, signs and notarizes universal ZIP/DMG artifacts; it does not 
 
 Hosted releases require `PICKOSAURUS_RELEASES_ENABLED=true` and signing secrets
 in the protected `release` environment. Keep the bundle ID and signing team stable.
-Publish the Homebrew cask from `Casks/pickosaurus.rb.in` only after a signed release
-exists, then update the README and `docs/site.json` with its install command.
+The Homebrew cask lives in [pceiley/homebrew-pickosaurus](https://github.com/pceiley/homebrew-pickosaurus).
+After publishing a signed, notarized ZIP, update `Casks/pickosaurus.rb` in that tap
+with the release version and the published ZIP's SHA-256 checksum. The source
+template is `Casks/pickosaurus.rb.in` in this repository. Validate the cask and
+download checksum before committing and pushing the tap update. The website's
+install command is configured in `docs/site.json`.
 
 Before releasing, test installation, updates and rollback, link selection, Zoom,
 default-browser registration, login items and icons. Include macOS 14 and Intel
