@@ -35,7 +35,6 @@ APP_NAME="Pickosaurus.app"
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 BUILD_DIR="$ROOT/build/release"
 EXPORT_DIR="$BUILD_DIR/export"
-EXPORT_OPTIONS="$BUILD_DIR/ExportOptions.plist"
 ARCHIVE="$BUILD_DIR/Pickosaurus.xcarchive"
 ZIP_PATH="$ROOT/build/Pickosaurus-$VERSION.zip"
 DMG_PATH="$ROOT/build/Pickosaurus-$VERSION.dmg"
@@ -74,9 +73,9 @@ echo "    Using: $DEV_ID"
 echo "==> Generating Xcode project"
 (cd "$ROOT" && xcodegen generate)
 
-echo "==> Archiving (Release)"
+echo "==> Archiving (Release, ad hoc before final inside-out signing)"
 rm -rf "$BUILD_DIR"
-xcodebuild -project "$ROOT/Pickosaurus.xcodeproj" \
+xcodebuild -quiet -project "$ROOT/Pickosaurus.xcodeproj" \
   -scheme "$SCHEME" \
   -configuration Release \
   -destination 'generic/platform=macOS' \
@@ -84,43 +83,47 @@ xcodebuild -project "$ROOT/Pickosaurus.xcodeproj" \
   -clonedSourcePackagesDirPath "$BUILD_DIR/SourcePackages" \
   ARCHS="arm64 x86_64" ONLY_ACTIVE_ARCH=NO \
   CODE_SIGN_STYLE=Manual \
-  CODE_SIGN_IDENTITY="$DEV_ID" \
+  CODE_SIGN_IDENTITY="-" \
   PRODUCT_BUNDLE_IDENTIFIER=com.pickosaurus.app \
   DEVELOPMENT_TEAM="$APPLE_TEAM_ID" \
   PICKOSAURUS_UPDATE_FEED_URL="$UPDATE_FEED_URL" \
   PICKOSAURUS_UPDATE_PUBLIC_ED_KEY="$SPARKLE_PUBLIC_ED_KEY" \
   MARKETING_VERSION="$VERSION" \
-  OTHER_CODE_SIGN_FLAGS="--timestamp --options runtime" \
+  OTHER_CODE_SIGN_FLAGS="--options runtime" \
   archive
 
-echo "==> Exporting Developer ID signed .app"
-cat > "$EXPORT_OPTIONS" <<EOF
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "https://www.apple.com/DTDs/PropertyList-1.0.dtd">
-<plist version="1.0">
-<dict>
-  <key>destination</key>
-  <string>export</string>
-  <key>method</key>
-  <string>developer-id</string>
-  <key>signingCertificate</key>
-  <string>$DEV_ID</string>
-  <key>signingStyle</key>
-  <string>manual</string>
-  <key>teamID</key>
-  <string>$APPLE_TEAM_ID</string>
-</dict>
-</plist>
-EOF
-xcodebuild -exportArchive \
-  -archivePath "$ARCHIVE" \
-  -exportPath "$EXPORT_DIR" \
-  -exportOptionsPlist "$EXPORT_OPTIONS"
+echo "==> Exporting signed .app"
+mkdir -p "$EXPORT_DIR"
+ditto "$ARCHIVE/Products/Applications/$APP_NAME" "$EXPORT_DIR/$APP_NAME"
 
 APP_PATH="$EXPORT_DIR/$APP_NAME"
 
+echo "==> Signing embedded Sparkle helpers"
+SPARKLE_VERSION_DIR="$(cd "$APP_PATH/Contents/Frameworks/Sparkle.framework/Versions/Current" && pwd -P)"
+SIGNED_COMPONENTS=(
+  "$SPARKLE_VERSION_DIR/Autoupdate"
+  "$SPARKLE_VERSION_DIR/XPCServices/Downloader.xpc"
+  "$SPARKLE_VERSION_DIR/XPCServices/Installer.xpc"
+  "$SPARKLE_VERSION_DIR/Updater.app"
+  "$SPARKLE_VERSION_DIR"
+  "$APP_PATH"
+)
+for component in "${SIGNED_COMPONENTS[@]}"; do
+  codesign --force --sign "$DEV_ID" --timestamp --options runtime \
+    --preserve-metadata=identifier,entitlements,flags,runtime "$component"
+done
+
 echo "==> Verifying code signature"
 codesign --verify --deep --strict --verbose=2 "$APP_PATH"
+for component in "${SIGNED_COMPONENTS[@]}"; do
+  SIGNING_METADATA="$(codesign -dvvv "$component" 2>&1)"
+  SIGNED_TEAM="$(printf '%s\n' "$SIGNING_METADATA" | sed -n 's/^TeamIdentifier=//p' | head -1)"
+  SIGNED_TIMESTAMP="$(printf '%s\n' "$SIGNING_METADATA" | sed -n 's/^Timestamp=//p' | head -1)"
+  if [[ "$SIGNED_TEAM" != "$APPLE_TEAM_ID" || -z "$SIGNED_TIMESTAMP" ]]; then
+    echo "ERROR: Missing Developer ID team or secure timestamp on $component" >&2
+    exit 1
+  fi
+done
 
 BUILT_FEED_URL=$(/usr/libexec/PlistBuddy -c 'Print :SUFeedURL' "$APP_PATH/Contents/Info.plist")
 BUILT_PUBLIC_KEY=$(/usr/libexec/PlistBuddy -c 'Print :SUPublicEDKey' "$APP_PATH/Contents/Info.plist")
@@ -150,8 +153,9 @@ if ! command -v create-dmg >/dev/null 2>&1; then
   echo "ERROR: create-dmg not found. Add pkgs.create-dmg on nix-darwin, or install it with your package manager." >&2
   exit 1
 fi
+CREATE_DMG="$(realpath "$(command -v create-dmg)")"
 DMG_BACKGROUND="$ROOT/scripts/dmg-background.tiff"
-create-dmg \
+"$CREATE_DMG" \
   --volname "$VOLNAME" \
   --background "$DMG_BACKGROUND" \
   --window-pos 200 120 \
