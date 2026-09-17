@@ -14,6 +14,7 @@ import plistlib, sys
 with open(sys.argv[1], "rb") as source:
     info = plistlib.load(source)
 info.pop("CFBundleURLTypes", None)
+info.pop("CFBundleDocumentTypes", None)
 with open(sys.argv[2], "wb") as output:
     plistlib.dump(info, output)
 PYINFO
@@ -37,6 +38,10 @@ if [[ "$TASK_BUNDLE_ID" != "com.pickosaurus.checks" ]]; then
 fi
 if /usr/libexec/PlistBuddy -c 'Print :CFBundleURLTypes' "$TASK_PRODUCTS/Pickosaurus Checks.app/Contents/Info.plist" >/dev/null 2>&1; then
     echo "FAIL: Test app must not register web-link handlers" >&2
+    exit 1
+fi
+if /usr/libexec/PlistBuddy -c 'Print :CFBundleDocumentTypes' "$TASK_PRODUCTS/Pickosaurus Checks.app/Contents/Info.plist" >/dev/null 2>&1; then
+    echo "FAIL: Test app must not register document handlers" >&2
     exit 1
 fi
 for TASK_SOURCE in "$TASK_ROOT"/Tests/*Checks.swift; do
