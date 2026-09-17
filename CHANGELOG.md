@@ -1,6 +1,16 @@
 # Changelog
 
-## 0.1.0 — Unreleased
+## 0.2.0 — 2026-09-17
+
+- Replaced the custom updater with Sparkle 2.10.0 and pinned the package version.
+- Kept update checks explicitly manual, with automatic checks, downloads and
+  system profiling disabled.
+- Added signed appcast and archive verification, release-feed generation and
+  complete bundled Sparkle licence notices.
+- Deferred app-window foreground activation until menu dismissal completes so
+  settings, help and update windows reliably receive focus.
+
+## 0.1.0 — 2026-09-15
 
 First Pickosaurus source release, with a standalone root commit and retained upstream MIT notices.
 
@@ -23,5 +33,5 @@ First Pickosaurus source release, with a standalone root commit and retained ups
 - Browserino and Browserosaurus inspiration credits in the app, README and website.
 - Licensing/asset review, publication checks and CI configuration.
 
-No public signed or notarized release is available yet. See [the README](README.md)
-for local builds and [licence and artwork notes](LICENSING.md).
+See [the README](README.md) for installation and
+[licence and artwork notes](LICENSING.md) for third-party notices.

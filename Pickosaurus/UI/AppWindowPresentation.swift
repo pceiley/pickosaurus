@@ -8,11 +8,17 @@ final class AppWindowPresentation {
     private var openWindows: [ObjectIdentifier: NSWindow] = [:]
     private var closeObservation: AnyCancellable?
     private let setPolicy: @MainActor (NSApplication.ActivationPolicy) -> Void
+    private let bringForward: @MainActor (NSWindow) -> Void
 
     init(setPolicy: @escaping @MainActor (NSApplication.ActivationPolicy) -> Void = { policy in
         if NSApp.activationPolicy() != policy { NSApp.setActivationPolicy(policy) }
+    }, bringForward: @escaping @MainActor (NSWindow) -> Void = { window in
+        if window.isMiniaturized { window.deminiaturize(nil) }
+        NSApp.activate(ignoringOtherApps: true)
+        window.makeKeyAndOrderFront(nil)
     }) {
         self.setPolicy = setPolicy
+        self.bringForward = bringForward
         closeObservation = NotificationCenter.default.publisher(for: NSWindow.willCloseNotification)
             .sink { [weak self] notification in
                 MainActor.assumeIsolated {
@@ -25,9 +31,13 @@ final class AppWindowPresentation {
     func show(_ window: NSWindow?) {
         guard let window else { return }
         register(window)
-        if window.isMiniaturized { window.deminiaturize(nil) }
-        window.makeKeyAndOrderFront(nil)
-        NSApp.activate(ignoringOtherApps: true)
+        // Let the menu bar popover dismiss and the activation-policy change
+        // settle before taking focus; popover teardown can otherwise take it back.
+        DispatchQueue.main.async { [weak self, weak window] in
+            guard let self, let window,
+                  self.openWindows[ObjectIdentifier(window)] != nil else { return }
+            self.bringForward(window)
+        }
     }
 
     func hide(_ window: NSWindow?) {

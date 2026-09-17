@@ -63,6 +63,9 @@ jobs:
           APPLE_APP_PASSWORD: ${{ secrets.APPLE_APP_PASSWORD }}
           APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
           PICKOSAURUS_UPDATE_REPOSITORY: ${{ github.repository }}
+          SPARKLE_PUBLIC_ED_KEY: ${{ secrets.SPARKLE_PUBLIC_ED_KEY }}
+          SPARKLE_PRIVATE_KEY: ${{ secrets.SPARKLE_PRIVATE_KEY }}
+          SPARKLE_RELEASE_NOTES: ${{ github.event.release.body }}
         run: scripts/release.sh "${GITHUB_REF_NAME#v}"
 
       - name: Attach artifacts to this repository's release
@@ -71,7 +74,8 @@ jobs:
           GH_REPO: ${{ github.repository }}
           TASK_ZIP: ${{ steps.release.outputs.zip_path }}
           TASK_DMG: ${{ steps.release.outputs.dmg_path }}
-        run: gh release upload "$GITHUB_REF_NAME" "$TASK_ZIP" "$TASK_DMG"
+          TASK_APPCAST: ${{ steps.release.outputs.appcast_path }}
+        run: gh release upload "$GITHUB_REF_NAME" "$TASK_ZIP" "$TASK_DMG" "$TASK_APPCAST"
 
       - name: Remove signing credentials
         if: always()

@@ -4,7 +4,7 @@ import AppKit
 @main
 struct WindowBehaviorChecks {
     @MainActor
-    static func main() {
+    static func main() async {
         let suite = "Pickosaurus.WindowChecks.\(UUID().uuidString)"
         let defaults = UserDefaults(suiteName: suite)!
         defer { defaults.removePersistentDomain(forName: suite) }
@@ -49,5 +49,32 @@ struct WindowBehaviorChecks {
         presentation.unregister(first)
         assert(policies.last == .accessory)
         print("PASS: Dock policy handles multiple windows, repeated shows, close/hide, reopening, and unrelated popovers")
+
+        var foregroundWindows: [NSWindow] = []
+        let foreground = AppWindowPresentation(setPolicy: { _ in }, bringForward: { foregroundWindows.append($0) })
+        foreground.show(first)
+        assert(foregroundWindows.isEmpty, "Focus must wait until the menu action has finished")
+        await drainPresentationQueue()
+        assert(foregroundWindows == [first])
+        foreground.show(second)
+        foreground.hide(second)
+        await drainPresentationQueue()
+        assert(foregroundWindows == [first], "A dismissed window must not reappear")
+        foreground.show(second)
+        await drainPresentationQueue()
+        assert(foregroundWindows == [first, second])
+        foreground.show(first)
+        NotificationCenter.default.post(name: NSWindow.willCloseNotification, object: first)
+        await drainPresentationQueue()
+        assert(foregroundWindows == [first, second], "A closed window must not take focus")
+        foreground.unregister(second)
+        print("PASS: foreground presentation waits for menu dismissal, supports reopening and cancels on hide/close")
+    }
+
+    @MainActor
+    private static func drainPresentationQueue() async {
+        await withCheckedContinuation { continuation in
+            DispatchQueue.main.async { continuation.resume() }
+        }
     }
 }

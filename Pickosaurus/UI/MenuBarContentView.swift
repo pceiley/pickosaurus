@@ -3,7 +3,6 @@ import SwiftUI
 struct MenuBarContentView: View {
     @EnvironmentObject private var settingsStore: SettingsStore
     @EnvironmentObject private var appState: AppState
-    @EnvironmentObject private var updateController: UpdateController
     @Environment(\.dismiss) private var dismiss
 
     var body: some View {
@@ -66,7 +65,9 @@ struct MenuBarContentView: View {
 
         MenuRow(title: "Check for Updates…", systemImage: "arrow.down.circle") {
             dismiss()
-            updateController.checkForUpdates(silent: false)
+            DispatchQueue.main.async {
+                UpdateController.shared.checkForUpdates()
+            }
         }
 
         MenuRow(title: "FAQ", systemImage: "questionmark.circle") {

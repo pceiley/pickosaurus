@@ -8,7 +8,7 @@ Links and routing are processed on your Mac. Rules, app choices and preferences 
 
 The browser or app you choose receives the link. Copy Link writes it to your clipboard, which macOS or clipboard tools may sync or retain. Those services have their own privacy practices.
 
-In builds with the standalone updater enabled, checking for or downloading an update contacts GitHub. GitHub receives your IP address and request metadata, but no routed links, rules or app choices. Checks are manual; debug builds do not check for updates.
+In builds with the standalone Sparkle updater enabled, choosing Check for Updates or downloading an update contacts GitHub. GitHub receives your IP address and request metadata, but no routed links, rules or app choices. Automatic checks and downloads are disabled; debug builds do not check for updates.
 
 This project's website has no analytics, tracking scripts or cookies added by Pickosaurus. GitHub Pages records visitor IP addresses for security under GitHub's privacy policy. Store and package-manager downloads are governed by their providers' privacy policies.
 

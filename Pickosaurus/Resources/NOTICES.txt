@@ -26,9 +26,11 @@ The software licence does not grant rights to third-party trademarks or artwork
 that the contributor does not own.
 
 System libraries and developer tools
-The app uses Apple system frameworks. No third-party
-Swift packages or browser binaries are embedded. XcodeGen and packaging utilities
-are development tools, not bundled application dependencies.
+The app uses Apple system frameworks and embeds Sparkle 2.10.0
+(https://github.com/sparkle-project/Sparkle). Sparkle is distributed under
+permissive licences; its complete copyright, permission and disclaimer text is
+included in SPARKLE-LICENSE.txt. Browser binaries are not embedded. XcodeGen and
+packaging utilities are development tools, not bundled application dependencies.
 
 Inspiration
 Browserino — https://github.com/AlexStrNik/Browserino

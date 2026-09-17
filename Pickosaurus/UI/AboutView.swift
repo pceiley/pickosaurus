@@ -70,7 +70,7 @@ struct AboutView: View {
     }
 
     private var notices: String {
-        ["LICENSE", "NOTICES"].compactMap { name in
+        ["LICENSE", "NOTICES", "SPARKLE-LICENSE"].compactMap { name in
             Bundle.main.url(forResource: name, withExtension: "txt")
                 .flatMap { try? String(contentsOf: $0, encoding: .utf8) }
         }.joined(separator: "\n\n")

@@ -18,7 +18,7 @@ so you can click a destination, press a shortcut or copy the link.
 
 Requires macOS 14 or later. Supports Apple silicon and Intel Macs.
 
-1. Download [Pickosaurus 0.1.0](https://github.com/pceiley/pickosaurus/releases/download/v0.1.0/Pickosaurus-0.1.0.zip).
+1. Download [Pickosaurus 0.2.0](https://github.com/pceiley/pickosaurus/releases/download/v0.2.0/Pickosaurus-0.2.0.zip).
 2. Double-click the ZIP to extract it, then move **Pickosaurus.app** to **Applications**.
 3. Open Pickosaurus and choose **Set as Default Browser…** from its menu bar menu.
 
@@ -41,7 +41,8 @@ same signed and notarized app as the ZIP download. A Mac App Store version is al
 
 ## Build and run
 
-Requires macOS 14+, Xcode 26+ and XcodeGen. No Swift package dependencies.
+Requires macOS 14+, Xcode 26+ and XcodeGen. Xcode resolves the pinned Sparkle
+package when generating the first build.
 
 ```sh
 git clone https://github.com/pceiley/pickosaurus.git
@@ -64,6 +65,8 @@ Inspired by [Browserino](https://github.com/AlexStrNik/Browserino) and
 [Browserosaurus](https://github.com/will-stone/browserosaurus).
 Based on [Browser Picker (browser-picker)](https://github.com/mertizci/browser-picker)
 by Mert IZCI, with the original [MIT licence](LICENSE.md) and notices retained.
+Standalone releases use the MIT-licensed [Sparkle](https://sparkle-project.org/)
+framework for manual, cryptographically signed updates.
 
 Dinosaur artwork generated with ChatGPT and refined for Pickosaurus.
 [Artwork and third-party notices](LICENSING.md).

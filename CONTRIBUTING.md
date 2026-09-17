@@ -1,7 +1,8 @@
 # Contributing
 
 Use Xcode 26+, XcodeGen and Python 3. On nix-darwin, add `pkgs.xcodegen` to your
-configuration. `project.yml` defines the project; generated Xcode files are ignored.
+configuration. Xcode resolves the pinned Sparkle package. `project.yml` defines
+the project; generated Xcode files are ignored.
 
 Before submitting changes:
 

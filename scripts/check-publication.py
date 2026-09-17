@@ -27,6 +27,16 @@ if b"Copyright (c) 2026 Mert IZCI" not in license_text:
 for required in ["README.md", "PRIVACY.md", "LICENSING.md", "CONTRIBUTING.md", "Pickosaurus/Resources/NOTICES.txt"]:
     if not (ROOT / required).is_file():
         fail(f"Missing publication file: {required}")
+sparkle_license = ROOT / "Pickosaurus/Resources/SPARKLE-LICENSE.txt"
+if not sparkle_license.is_file() or b"Copyright (c) 2006-2013 Andy Matuschak" not in sparkle_license.read_bytes():
+    fail("Sparkle's bundled licence and third-party notices are missing")
+info = plistlib.loads((ROOT / "Pickosaurus/Info.plist").read_bytes())
+for key in ["SUEnableAutomaticChecks", "SUAllowsAutomaticUpdates", "SUEnableSystemProfiling"]:
+    if info.get(key) is not False:
+        fail(f"Privacy-sensitive Sparkle setting must remain disabled: {key}")
+for key in ["SUVerifyUpdateBeforeExtraction", "SURequireSignedFeed"]:
+    if info.get(key) is not True:
+        fail(f"Sparkle security setting must remain enabled: {key}")
 
 # A broad ignore pattern can hide an entire source directory on a case-insensitive Mac.
 source_types = {".swift", ".plist", ".entitlements", ".json", ".png", ".txt", ".html", ".md", ".svg"}

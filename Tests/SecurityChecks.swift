@@ -33,47 +33,14 @@ struct SecurityChecks {
         precondition((replacedAttributes[.posixPermissions] as? NSNumber)?.intValue == 0o600)
         print("PASS: new and replaced settings remain owner-only")
 
-        precondition(!ReleaseConfiguration.isConfigured)
-        precondition(!ReleaseIdentity.isValid(at: temporary))
-        precondition(!ReleaseIdentity.isValid(at: temporary, teamIdentifier: "BAD\" OR true"))
-        precondition(!ReleaseConfiguration.isValidRepository("owner/repo/../../other"))
-        precondition(!ReleaseConfiguration.isValidTeamIdentifier("TEAM123456\n"))
-        let repository = "example/pickosaurus"
-        precondition(ReleaseConfiguration.isReleaseAssetURL(URL(string: "https://github.com/example/pickosaurus/releases/download/v0.1.0/Pickosaurus-0.1.0.dmg")!, repository: repository))
-        for value in ["http://github.com/example/pickosaurus/releases/download/v1/a.dmg", "https://evil.test/example/pickosaurus/releases/download/v1/a.dmg", "https://github.com/other/repo/releases/download/v1/a.dmg", "https://github.com@example.test/example/pickosaurus/releases/download/v1/a.dmg"] {
-            precondition(!ReleaseConfiguration.isReleaseAssetURL(URL(string: value)!, repository: repository))
+        precondition(UpdateConfiguration.isValidFeedURL("https://github.com/example/pickosaurus/releases/latest/download/appcast.xml"))
+        for value in [nil, "", "http://github.com/example/pickosaurus/releases/latest/download/appcast.xml", "https://evil.test/example/pickosaurus/releases/latest/download/appcast.xml", "https://github.com@example.test/example/pickosaurus/releases/latest/download/appcast.xml", "https://github.com/example/pickosaurus/releases/latest/download/appcast.xml?token=secret"] {
+            precondition(!UpdateConfiguration.isValidFeedURL(value))
         }
-        print("PASS: unconfigured updates fail closed and asset URLs stay in the configured HTTPS repository")
-
-        try checkSwap(in: temporary, missingSource: false)
-        try checkSwap(in: temporary, missingSource: true)
-        print("PASS: update swap replaces successfully and restores the installed app on rename failure")
-    }
-
-    static func checkSwap(in root: URL, missingSource: Bool) throws {
-        let directory = root.appendingPathComponent(UUID().uuidString)
-        let work = directory.appendingPathComponent("stage with 'quotes'")
-        let source = work.appendingPathComponent("Pickosaurus.app")
-        let destination = directory.appendingPathComponent("Installed ' app.app")
-        try FileManager.default.createDirectory(at: destination, withIntermediateDirectories: true)
-        try Data("old".utf8).write(to: destination.appendingPathComponent("marker"))
-        try FileManager.default.createDirectory(at: work, withIntermediateDirectories: true)
-        if !missingSource {
-            try FileManager.default.createDirectory(at: source, withIntermediateDirectories: true)
-            try Data("new".utf8).write(to: source.appendingPathComponent("marker"))
+        precondition(UpdateConfiguration.isValidPublicKey("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA="))
+        for value in [nil, "", "not-base64", "AAAA"] {
+            precondition(!UpdateConfiguration.isValidPublicKey(value))
         }
-        let scriptURL = directory.appendingPathComponent("swap.sh")
-        // Exercise the filesystem transaction without launching an application.
-        let script = UpdateInstaller.swapScript.replacingOccurrences(of: "/usr/bin/open", with: "/usr/bin/true")
-        try script.write(to: scriptURL, atomically: true, encoding: .utf8)
-        let process = Process()
-        process.executableURL = URL(fileURLWithPath: "/bin/sh")
-        process.arguments = [scriptURL.path, "2147483647", source.path, destination.path]
-        process.standardError = FileHandle.nullDevice
-        try process.run()
-        process.waitUntilExit()
-        precondition((process.terminationStatus == 0) == !missingSource)
-        let marker = try String(contentsOf: destination.appendingPathComponent("marker"), encoding: .utf8)
-        precondition(marker == (missingSource ? "old" : "new"))
+        print("PASS: Sparkle updates fail closed unless the HTTPS feed and EdDSA public key are configured")
     }
 }

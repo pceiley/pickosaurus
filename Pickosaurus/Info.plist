@@ -2,10 +2,20 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>PickosaurusUpdateRepository</key>
-	<string>$(PICKOSAURUS_UPDATE_REPOSITORY)</string>
-	<key>PickosaurusUpdateTeamIdentifier</key>
-	<string>$(PICKOSAURUS_UPDATE_TEAM_IDENTIFIER)</string>
+	<key>SUFeedURL</key>
+	<string>$(PICKOSAURUS_UPDATE_FEED_URL)</string>
+	<key>SUPublicEDKey</key>
+	<string>$(PICKOSAURUS_UPDATE_PUBLIC_ED_KEY)</string>
+	<key>SUEnableAutomaticChecks</key>
+	<false/>
+	<key>SUAllowsAutomaticUpdates</key>
+	<false/>
+	<key>SUEnableSystemProfiling</key>
+	<false/>
+	<key>SUVerifyUpdateBeforeExtraction</key>
+	<true/>
+	<key>SURequireSignedFeed</key>
+	<true/>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleExecutable</key>

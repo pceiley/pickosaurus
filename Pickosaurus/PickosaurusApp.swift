@@ -65,8 +65,6 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
 
             AppState.shared.refreshDefaultBrowserStatus()
 
-            // Update checks are user-initiated; launching the app makes no update request.
-            UpdateController.shared.consumePostUpdateNoticeIfNeeded()
         }
     }
 
@@ -83,7 +81,6 @@ struct PickosaurusApp: App {
     @StateObject private var settingsStore = SettingsStore.shared
     @StateObject private var appState = AppState.shared
     @StateObject private var urlRouter = URLRouter.shared
-    @StateObject private var updateController = UpdateController.shared
 
     var body: some Scene {
         MenuBarExtra {
@@ -91,7 +88,6 @@ struct PickosaurusApp: App {
                 .environmentObject(settingsStore)
                 .environmentObject(appState)
                 .environmentObject(urlRouter)
-                .environmentObject(updateController)
         } label: {
             Image("MenuBarIcon")
                 .renderingMode(.template)

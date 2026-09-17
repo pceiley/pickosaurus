@@ -51,6 +51,7 @@ for TASK_SOURCE in "$TASK_ROOT"/Tests/*Checks.swift; do
         "$TASK_SOURCE" \
         "$TASK_BINARY_DIR/Pickosaurus Checks.debug.dylib" \
         -Xlinker -rpath -Xlinker "$TASK_BINARY_DIR" \
+        -Xlinker -rpath -Xlinker "$TASK_PRODUCTS/Pickosaurus Checks.app/Contents/Frameworks" \
         -o "$TASK_TEMP/$TASK_NAME"
     "$TASK_TEMP/$TASK_NAME"
 done
