@@ -18,7 +18,7 @@ so you can click a destination, press a shortcut or copy the link.
 
 Requires macOS 14 or later. Supports Apple silicon and Intel Macs.
 
-1. Download [Pickosaurus 0.2.0](https://github.com/pceiley/pickosaurus/releases/download/v0.2.0/Pickosaurus-0.2.0.zip).
+1. Download [Pickosaurus 0.2.1](https://github.com/pceiley/pickosaurus/releases/download/v0.2.1/Pickosaurus-0.2.1.zip).
 2. Double-click the ZIP to extract it, then move **Pickosaurus.app** to **Applications**.
 3. Open Pickosaurus and choose **Set as Default Browser…** from its menu bar menu.
 

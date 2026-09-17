@@ -44,6 +44,10 @@ if /usr/libexec/PlistBuddy -c 'Print :CFBundleDocumentTypes' "$TASK_PRODUCTS/Pic
     echo "FAIL: Test app must not register document handlers" >&2
     exit 1
 fi
+if ! otool -l "$TASK_BINARY_DIR/Pickosaurus Checks" | grep -Fq '@executable_path/../Frameworks'; then
+    echo "FAIL: Built app cannot load embedded frameworks" >&2
+    exit 1
+fi
 for TASK_SOURCE in "$TASK_ROOT"/Tests/*Checks.swift; do
     TASK_NAME="$(basename "$TASK_SOURCE" .swift)"
     xcrun swiftc -parse-as-library \

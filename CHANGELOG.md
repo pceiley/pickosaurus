@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.2.1 — 2026-09-17
+
+- Fixed the release executable's runtime search path so the embedded Sparkle
+  framework loads when Pickosaurus starts.
+- Added build and release checks for embedded-framework loading.
+
 ## 0.2.0 — 2026-09-17
 
 - Replaced the custom updater with Sparkle 2.10.0 and pinned the package version.

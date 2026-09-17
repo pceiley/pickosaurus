@@ -97,6 +97,10 @@ mkdir -p "$EXPORT_DIR"
 ditto "$ARCHIVE/Products/Applications/$APP_NAME" "$EXPORT_DIR/$APP_NAME"
 
 APP_PATH="$EXPORT_DIR/$APP_NAME"
+if ! otool -l "$APP_PATH/Contents/MacOS/Pickosaurus" | grep -Fq '@executable_path/../Frameworks'; then
+  echo "ERROR: The app cannot load embedded frameworks at runtime." >&2
+  exit 1
+fi
 
 echo "==> Signing embedded Sparkle helpers"
 SPARKLE_VERSION_DIR="$(cd "$APP_PATH/Contents/Frameworks/Sparkle.framework/Versions/Current" && pwd -P)"
