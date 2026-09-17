@@ -35,6 +35,7 @@ APP_NAME="Pickosaurus.app"
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 BUILD_DIR="$ROOT/build/release"
 EXPORT_DIR="$BUILD_DIR/export"
+EXPORT_OPTIONS="$BUILD_DIR/ExportOptions.plist"
 ARCHIVE="$BUILD_DIR/Pickosaurus.xcarchive"
 ZIP_PATH="$ROOT/build/Pickosaurus-$VERSION.zip"
 DMG_PATH="$ROOT/build/Pickosaurus-$VERSION.dmg"
@@ -92,9 +93,29 @@ xcodebuild -project "$ROOT/Pickosaurus.xcodeproj" \
   OTHER_CODE_SIGN_FLAGS="--timestamp --options runtime" \
   archive
 
-echo "==> Exporting signed .app"
-mkdir -p "$EXPORT_DIR"
-cp -R "$ARCHIVE/Products/Applications/$APP_NAME" "$EXPORT_DIR/"
+echo "==> Exporting Developer ID signed .app"
+cat > "$EXPORT_OPTIONS" <<EOF
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "https://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <key>destination</key>
+  <string>export</string>
+  <key>method</key>
+  <string>developer-id</string>
+  <key>signingCertificate</key>
+  <string>$DEV_ID</string>
+  <key>signingStyle</key>
+  <string>manual</string>
+  <key>teamID</key>
+  <string>$APPLE_TEAM_ID</string>
+</dict>
+</plist>
+EOF
+xcodebuild -exportArchive \
+  -archivePath "$ARCHIVE" \
+  -exportPath "$EXPORT_DIR" \
+  -exportOptionsPlist "$EXPORT_OPTIONS"
 
 APP_PATH="$EXPORT_DIR/$APP_NAME"
 
