@@ -7,7 +7,7 @@ cask "pickosaurus" do
   name "Pickosaurus"
   desc "A simple, fast and private link picker for macOS"
   homepage "https://github.com/@REPOSITORY@"
-  depends_on macos: ">= :sonoma"
+  depends_on macos: :sonoma
   app "Pickosaurus.app"
 
   zap trash: [
