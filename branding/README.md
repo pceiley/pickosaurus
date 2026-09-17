@@ -23,8 +23,9 @@ tinted rendering. Xcode compiles this document alongside the legacy asset catalo
 no runtime theme observer or additional permission is needed. Open the `.icon`
 document in Icon Composer to edit it. The branding script does not overwrite it.
 
-Icon Composer uses the vector foreground at 80% scale. Its default, dark and tinted
-renders were checked at 32 px; the silhouette, eye and finger remain distinguishable.
+Icon Composer uses the vector foreground at 80% scale, translated 10 points down so
+the dinosaur rests on the lower edge. Its default, dark and tinted renders were
+checked at 32 px; the silhouette, eye and finger remain distinguishable.
 At 16 px the fine facial details necessarily soften. The separate menu bar stencil
 serves the smallest monochrome presentation.
 
